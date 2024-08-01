@@ -1,5 +1,6 @@
 package com.example.Avocapplogin.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -20,6 +21,10 @@ public class Dossier {
     private String etat;
     private Date created;
     private Date updated;
+
+    @OneToMany(mappedBy = "dossier", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Procedure> procedures;
 
     @OneToMany(mappedBy = "dossier")
     private Set<PersonnesDossier> personnesDossiers;
@@ -98,6 +103,14 @@ public class Dossier {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public Set<Procedure> getProcedures() {
+        return procedures;
+    }
+
+    public void setProcedures(Set<Procedure> procedures) {
+        this.procedures = procedures;
     }
 
     public Set<PersonnesDossier> getPersonnesDossiers() {

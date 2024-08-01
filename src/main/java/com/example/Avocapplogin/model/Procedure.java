@@ -1,5 +1,6 @@
 package com.example.Avocapplogin.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.Date;
@@ -12,7 +13,6 @@ public class Procedure {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long idDossier;
     private String etape;
     private String numero;
     private String reference;
@@ -25,6 +25,11 @@ public class Procedure {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date updated;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_dossier", nullable = false)
+    @JsonBackReference
+    private Dossier dossier;
 
     @OneToMany(mappedBy = "procedure", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
@@ -54,14 +59,6 @@ public class Procedure {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getIdDossier() {
-        return idDossier;
-    }
-
-    public void setIdDossier(Long idDossier) {
-        this.idDossier = idDossier;
     }
 
     public String getEtape() {
@@ -126,6 +123,14 @@ public class Procedure {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public Dossier getDossier() {
+        return dossier;
+    }
+
+    public void setDossier(Dossier dossier) {
+        this.dossier = dossier;
     }
 
     public List<Tabligh> getTablighs() {
