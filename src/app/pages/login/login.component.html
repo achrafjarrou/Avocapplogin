@@ -1,0 +1,26 @@
+<div id="loginPage" class="login-page">
+  <div class="left-section">
+    <div class="Lawyerimage">
+      <img src="assets/law123.jpeg" alt="Lawyerimage">
+    </div>
+  </div>
+  <div class="right-section">
+    <div class="login-form">
+      <div class="logo">
+        <img src="assets/hoho.jpeg" alt="AttorneyCare Logo">
+      </div>
+      <h2>تسجيل الدخول</h2>
+      <p>الرجاء إدخال تفاصيل تسجيل الدخول لاستخدام جميع ميزات الموقع</p>
+      <form>
+        <<input type="text" placeholder="اسم المستخدم" [(ngModel)]="loginObj.login" required />
+        <input type="password" placeholder="كلمة المرور" [(ngModel)]="loginObj.password" required />        
+        <div class="remember-forgot">
+          <label>
+            <input type="checkbox"> تذكرني
+          </label>
+        </div>
+        <button type="button" (click)="onLogin()">تسجيل الدخول</button>
+      </form>
+    </div>
+  </div>
+</div>

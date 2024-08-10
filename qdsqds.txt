@@ -1,0 +1,294 @@
+<div id="loadingDashboard" class="loading-page" *ngIf="loading">
+    <div class="spinner"></div>
+  </div>
+  
+  <div id="loginPage" class="login-page">
+    <div class="left-section">
+      <div class="illustration">
+        <img src="path-to-your-image.png" alt="Illustration">
+      </div>
+    </div>
+    <div class="right-section">
+      <div class="login-form">
+        <div class="logo">
+          <img src="path-to-your-logo.png" alt="AttorneyCare Logo">
+        </div>
+        <h2>Login</h2>
+        <p>Welcome back! Please enter your login details</p>
+        <form>
+          <input type="email" placeholder="Email" [(ngModel)]="loginObj.email" required />
+          <input type="password" placeholder="Password" [(ngModel)]="loginObj.password" required />
+          <div class="remember-forgot">
+            <label>
+              <input type="checkbox"> Remember me
+            </label>
+            <a href="#">Forgot Password?</a>
+          </div>
+          <button type="button" (click)="onLogin()">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    overflow: hidden;
+  }
+  
+  .loading-page {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .login-page {
+    display: none;
+    visibility: hidden;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    height: 100vh;
+    margin: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    animation: fadeIn 1s ease-in-out forwards;
+    background-color: white;
+  }
+  
+  .left-section {
+    background-color: #f7d84a;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .left-section h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .left-section p {
+    font-size: 1rem;
+    color: #555;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .left-section .illustration img {
+    max-width: 80%;
+    height: auto;
+  }
+  
+  .right-section {
+    background-color: #333;
+    color: #fff;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+  }
+  
+  .right-section .login-form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .right-section .logo img {
+    max-width: 80px;
+    margin-bottom: 20px;
+  }
+  
+  .right-section h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .right-section p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #aaa;
+  }
+  
+  .right-section form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .right-section input {
+    background-color: #444;
+    border: none;
+    margin: 10px 0;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    color: #fff;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .right-section input::placeholder {
+    color: #ccc;
+  }
+  
+  .right-section input:focus {
+    background-color: #555;
+    outline: none;
+  }
+  
+  .remember-forgot {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+    color: #bbb;
+  }
+  
+  .remember-forgot a {
+    color: #f7d84a;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .remember-forgot a:hover {
+    color: #e0c049;
+  }
+  
+  .right-section button[type="button"] {
+    background-color: #f7d84a;
+    color: #333;
+    font-size: 1.1rem;
+    padding: 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+  }
+  
+  .right-section button[type="button"]:hover {
+    background-color: #e0c049;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+
+  loginObj: LoginModel = new LoginModel();
+  loading = false;
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    // Hide the initial loading screen and show the login page
+    const loadingElement = document.getElementById('loading');
+    const loginPageElement = document.getElementById('loginPage');
+    
+    if (loadingElement) {
+      loadingElement.style.display = 'none';
+    }
+    
+    if (loginPageElement) {
+      loginPageElement.style.display = 'flex';
+      loginPageElement.style.visibility = 'visible';
+    }
+  }
+
+  onLogin() {
+    // Show the loading screen
+    this.loading = true;
+    const loadingDashboardElement = document.getElementById('loadingDashboard');
+    
+    if (loadingDashboardElement) {
+      loadingDashboardElement.style.display = 'flex';
+    }
+
+    // Simulate the login process with a 2-second delay
+    setTimeout(() => {
+      const localUsers = localStorage.getItem('angular17users');
+      if (localUsers != null) {
+        const users = JSON.parse(localUsers);
+        const isUserPresent = users.find((user: LoginModel) =>
+          user.email === this.loginObj.email && user.password === this.loginObj.password
+        );
+        if (isUserPresent !== undefined) {
+          localStorage.setItem('loggedUser', JSON.stringify(isUserPresent));
+          this.router.navigateByUrl('/dashboard');
+        } else {
+          alert("No User Found");
+        }
+      } else {
+        alert("No User Found");
+      }
+
+      // Hide the loading screen after processing
+      if (loadingDashboardElement) {
+        loadingDashboardElement.style.display = 'none';
+      }
+
+      this.loading = false;
+    }, 2000); // 2-second delay
+  }
+}
+
+export class LoginModel {
+  email: string;
+  password: string;
+
+  constructor() {
+    this.email = "";
+    this.password = "";
+  }
+}
